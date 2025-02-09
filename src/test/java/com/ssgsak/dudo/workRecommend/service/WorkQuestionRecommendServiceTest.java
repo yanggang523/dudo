@@ -38,7 +38,6 @@ class WorkQuestionRecommendServiceTest {
 
         workQuestionRecommendRepository.save(workQuestionRecommend);
         //then
-
         String workQuestionForWorkField = workQuestionRecommendService.getWorkQuestionForWorkField(savedWorkReccomdList.getId());
 
         System.out.println("workQuestionForWorkField = " + workQuestionForWorkField);

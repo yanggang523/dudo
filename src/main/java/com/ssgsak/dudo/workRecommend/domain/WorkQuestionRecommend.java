@@ -1,13 +1,11 @@
 package com.ssgsak.dudo.workRecommend.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WorkQuestionRecommend {
 
@@ -29,6 +27,11 @@ public class WorkQuestionRecommend {
     @OneToOne(mappedBy = "workQuestionRecommend")
     private WorkRecommendList workRecommendList;
 
+
+    public WorkQuestionRecommend(String recommend_company_names) {
+        this.recommend_company_names = recommend_company_names;
+    }
+
     public WorkQuestionRecommend(String recommend_company_names, String recommend_company_careers, String recommend_certifications, String recommend_pride_joy) {
         this.recommend_company_names = recommend_company_names;
         this.recommend_company_careers = recommend_company_careers;
@@ -47,6 +50,7 @@ public class WorkQuestionRecommend {
         this.recommend_sigungu = recommend_sigungu;
         this.recommend_commute_hour = recommend_commute_hour;
         this.recommend_work_hour = recommend_work_hour;
+        this.recommend_work_field = recommend_work_field;
     }
 
 

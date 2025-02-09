@@ -18,4 +18,6 @@ public class WorkFieldRequestForAi {
         this.recommend_certifications = recommend_certifications;
         this.recommend_pride_joy = recommend_pride_joy;
     }
+
+
 }

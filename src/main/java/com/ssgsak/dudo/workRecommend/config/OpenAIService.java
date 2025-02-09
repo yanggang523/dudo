@@ -19,7 +19,6 @@ public class OpenAIService {
 
     public OpenAIService(ChatClient chatClient) {
         this.chatClient = chatClient;
-
     }
 
     public String getChatGPTResponse(String systemMessage, String userMessage) {

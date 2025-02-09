@@ -9,7 +9,7 @@ class Config {
 
     @Bean
     ChatClient chatClient(ChatClient.Builder builder) {
-        return builder.defaultSystem("You are a friendly chat bot for job reccomendation for 60 years older sinnior people")
+        return builder.defaultSystem("You are a friendly chat bot for job recommendation for 60 years older Senior people")
                 .build();
     }
 

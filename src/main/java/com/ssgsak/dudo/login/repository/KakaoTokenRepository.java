@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface KakaoTokenRepository extends JpaRepository<KakaoToken, Long> {
     Optional<KakaoToken> findByUserEmail(String email);
+
 }

@@ -9,4 +9,14 @@ import lombok.Getter;
 public class LoginResponseDTO {
     private String email;
     private String nickname;
+    @Getter
+    public static class Properties {
+        private String nickname;
+    }
+
+    @Getter
+    public static class KakaoAccount {
+        private String email;
+    }
 }
+

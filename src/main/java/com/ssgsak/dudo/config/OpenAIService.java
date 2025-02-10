@@ -1,4 +1,4 @@
-package com.ssgsak.dudo.workRecommend.config;
+package com.ssgsak.dudo.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;

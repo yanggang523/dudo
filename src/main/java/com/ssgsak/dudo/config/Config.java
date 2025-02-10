@@ -1,4 +1,4 @@
-package com.ssgsak.dudo.workRecommend.config;
+package com.ssgsak.dudo.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

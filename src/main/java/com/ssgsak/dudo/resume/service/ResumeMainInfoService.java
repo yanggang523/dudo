@@ -36,7 +36,6 @@ public class ResumeMainInfoService {
     private final ResumeQuestionOpenAiService resumeQuestionOpenAiService;
 
 
-
     // 연습용
     public void createResumeMainInfo(Long resumeQuestionsId, ResumeMainInfoCreate resumeMainInfoCreate) {
 
@@ -58,7 +57,6 @@ public class ResumeMainInfoService {
         resumeMainInfoRepository.save(resumeMainInfo);
 
     }
-
 
 
     // q1 - 이력서 작성 :  이름, 생년월일, 주소 저장
@@ -125,8 +123,10 @@ public class ResumeMainInfoService {
 
     }
 
-    // q5 - 이력서 작성 : 언어 사용기술 저장
-    public ResumeMainInfoSkillLanguage saveResumeForSkillLanguage(Long resumeMainInfoId , String request) {
+    /**
+     * q5 - 이력서 작성 : 언어 사용기술 저장 (new EtcHistory())
+     */
+    public ResumeMainInfoSkillLanguage saveResumeForSkillLanguage(Long resumeMainInfoId, String request) {
 
         ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
 
@@ -136,8 +136,8 @@ public class ResumeMainInfoService {
         return resumeCompanyHistoryWithAi;
     }
 
-    // q6 - 이력서 작성 : 기타사항 저장
-    public  ResumeMainInfoCertificationEducation saveResumeForCertificationEducation(Long resumeMainInfoId, String request) {
+    // q6 - 이력서 작성 :  자격증, 교육 관련 질문 저장
+    public ResumeMainInfoCertificationEducation saveResumeForCertificationEducation(Long resumeMainInfoId, String request) {
 
         ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
 
@@ -148,6 +148,32 @@ public class ResumeMainInfoService {
         etcHistory.changeResume_certification_education(resumeCompanyHistoryWithAi.getResume_certificates(), resumeCompanyHistoryWithAi.getResume_education());
 
         return resumeCompanyHistoryWithAi;
+    }
+
+    // q7 - 이력서 작성 : 수상 관련 질문
+    public String saveResumeForAward(Long resumeMainInfoId, String request) {
+
+        ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
+
+        String award = resumeQuestionOpenAiService.getResumeAward(request);
+
+        EtcHistory etcHistory = resumeMainInfo.getEtcHistory();
+
+        etcHistory.changeResume_award(award);
+
+        return award;
+    }
+
+
+
+    // q8 - 이력서 작성 : 봉사
+    public String saveResumeForVolnteer(Long resumeMainInfoId, String request) {
+
+        ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
+        resumeQuestionOpenAiService.getResumeVolunteer(request);
+//        String project = resumeQuestionOpenAiService.getResumeProject(request);
+
+        return "";
     }
 
 //    @Transactional(readOnly = true)
@@ -162,8 +188,6 @@ public class ResumeMainInfoService {
     public void delete(Long id) {
         resumeMainInfoRepository.deleteById(id);
     }
-
-
 
 
 }

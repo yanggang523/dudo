@@ -40,4 +40,8 @@ public class EtcHistory {
         this.resume_certificates = resume_certificates;
         this.resume_education = resume_education;
     }
+
+    public void changeResume_award(String award) {
+        this.resume_awards = award;
+    }
 }

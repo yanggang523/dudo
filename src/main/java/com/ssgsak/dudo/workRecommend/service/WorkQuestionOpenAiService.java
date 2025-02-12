@@ -6,6 +6,7 @@ import com.ssgsak.dudo.config.OpenAIService;
 import com.ssgsak.dudo.workRecommend.request.FinalJobSelectRequest;
 import com.ssgsak.dudo.workRecommend.request.WorkFieldRequestForAi;
 import com.ssgsak.dudo.workRecommend.response.FinalJobSelectResponse;
+import com.ssgsak.dudo.workRecommend.response.WorkFieldListResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class WorkQuestionOpenAiService {
 
 
     @Transactional
-    public String getWorkFieldWithAi(WorkFieldRequestForAi request) throws JsonProcessingException {
+    public List<WorkFieldListResponse> getWorkFieldWithAi(WorkFieldRequestForAi request) throws JsonProcessingException {
 
         String userMessage = objectMapper.writeValueAsString(request);
         String systemMessage = """
@@ -33,8 +34,8 @@ public class WorkQuestionOpenAiService {
                     [행정, 경영, 금융, 보험, 교육, 법률, 복지, 의료, 예술, 방송, 정보통신, 미용, 여행, 숙박, 식음료, 영업, 판매, 운송, 건설, 채굴, 제조, 생산, 회계 및 경리, 광고, 무역, 운송, 자재, 사무, 사무보조, 안내 및 접수, 고객상담, 통계, 컴퓨터하드웨어, 소프트웨어, 정보보안, 기계공학, 로봇공학, 전기전자, 섬유, 식품, 강사, 사회복지, 상담, 보육, 반려동물, 예식, 오락, 조리, 식당, 경비, 돌봄, 청소, 방역, 검침, 중개, 작물재배, 낙농 및 사육, 임업, 어업]이 있으며
                     반드시 이 직종 리스트 중에 선택해야 합니다.
                     형식은 다음과 같습니다:
-                    {
-                      "workFieldList": [
+                    
+                       [
                         {
                           "workNumber": 1,
                           "workFieldName": "🎦직종",
@@ -43,13 +44,14 @@ public class WorkQuestionOpenAiService {
                         },
                         ...
                       ]
-                    }
+                    
                     추천된 직종은 사용자의 경력과 학력, 일에서 느끼는 보람을 고려해야 합니다.
                     직종 이름은 간결하고 명확해야 하며, 설명은 이해하기 쉽게 작성해야 합니다.
                     JSON 외의 다른 응답은 금지됩니다.
                 """;
 
-        return openAIService.getChatGPTResponse(systemMessage, userMessage);
+        String json = openAIService.getChatGPTResponse(systemMessage, userMessage);
+        return objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(List.class, WorkFieldListResponse.class));
     }
 
 

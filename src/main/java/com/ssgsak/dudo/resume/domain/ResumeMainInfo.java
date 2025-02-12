@@ -22,7 +22,6 @@ public class ResumeMainInfo {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-
     private String resume_name; // 이력서 이름
     private LocalDate resume_birth; // 생년월일
     private String resume_address; // 주소

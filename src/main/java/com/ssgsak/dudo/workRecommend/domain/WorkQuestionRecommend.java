@@ -28,6 +28,11 @@ public class WorkQuestionRecommend {
     private WorkRecommendList workRecommendList;
 
 
+    private void changeWorkRecommendList(WorkRecommendList workRecommendList) {
+        this.workRecommendList = workRecommendList;
+
+    }
+
     public WorkQuestionRecommend(String recommend_company_names) {
         this.recommend_company_names = recommend_company_names;
     }

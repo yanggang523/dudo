@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ResumeMainInfoController {
 
-    private final ResumeMainInfoService resumeMainInfoService;
 
     @PostMapping("/api/resume/questionNameLocation")
     public ResponseEntity<String> getResumeNameLocationWithAi() {
-
-        return ResponseEntity.ok();
+        return null;
     }
+
+
 
 }

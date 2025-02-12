@@ -61,11 +61,11 @@ public class ResumeQuestionOpenAiService {
                 }
                 응답 형식 예시:
                 [
-                    {
+                     {
                         "resume_company": "삼성전자",
                         "resume_service_year": 3,
                         "resume_job_responsibilities": "소프트웨어 엔지니어, 자바, 파이썬, 웹 개발, 데이터베이스 설계, 관리"
-                    },
+                     },
                        {
                         "resume_company": "하이닉스",
                         "resume_service_year": 10,
@@ -81,7 +81,8 @@ public class ResumeQuestionOpenAiService {
         // ObjectMapper를 사용해 JSON 배열을 List<CompanyHistoryResponse>로 파싱
         ObjectMapper objectMapper = new ObjectMapper();
         List<CompanyHistoryResponse> companyHistoryList = objectMapper.readValue(
-                jsonResponse, new TypeReference<List<CompanyHistoryResponse>>() {}
+                jsonResponse, new TypeReference<List<CompanyHistoryResponse>>() {
+                }
         );
 
         return companyHistoryList;
@@ -104,7 +105,7 @@ public class ResumeQuestionOpenAiService {
                   {
                   "resume_skills" : "AutoCAD, CAD, 소프트웨어 설계 도구, 기계 설계 및 분석, 기본적인 데이터베이스 관리, SQL",
                   "resume_languages" : "영어, 중국어"
-                  },
+                  }
                 """;
         String jsonResponse = openAIService.getChatGPTResponse(systemMessage, request);
         try {
@@ -130,7 +131,7 @@ public class ResumeQuestionOpenAiService {
                   {
                   "resume_certificates" : "PMP",
                   "resume_education" : "빅데이터 분석"
-                  },
+                  }
                 """;
         String jsonResponse = openAIService.getChatGPTResponse(systemMessage, request);
         try {
@@ -140,5 +141,47 @@ public class ResumeQuestionOpenAiService {
             throw new RuntimeException("JSON 파싱 에러");
         }
 
+    }
+
+    public String getResumeAward(String request) {
+
+        String systemMessage = """
+                당신은 이력서에서 핵심 키워드를 추출하는 AI입니다.
+                주어진 문장에서 중요한 수상 내용과 관련된 키워드만 추출하세요.
+                        키워드는 짧고 명확해야 하며, 리스트 형식으로 제공해야 합니다.
+                        요청 형식 예시:
+                {
+                    "text":  " 2020년에 최상의 ‘혁신상’을 수상한 경험이 있습니다. 이는 제가 
+                                주도한 공정 개선 프로젝트가 회사의 
+                                비용 절감에 크게 기여했음을 인정받아 수여된 상입니다."
+                }
+                응답 형식 예시:
+                {
+                    "2020년 최상의 ‘혁신상', 공정 개선 프로젝트가 회사의 비용 절감에 크게 기여"
+                }
+                """;
+
+        return openAIService.getChatGPTResponse(systemMessage, request);
+    }
+
+    public void getResumeVolunteer(String request) {
+
+        String systemMessage = """
+                당신은 이력서에서 핵심 키워드를 추출하는 AI입니다.
+                주어진 문장에서 중요한 봉사활동 내용과 관련된 키워드만 추출하세요.
+                키워드는 짧고 명확해야 하며, 리스트 형식으로 제공해야 합니다.
+                요청 형식 예시:
+                {
+                    "text":  " 2019년에는 지역 아동센터에서 봉사활동을 진행했습니다.
+                                아이들에게 수업을 진행하고, 놀이시간을 지원했습니다."
+                }
+              
+                응답 형식 예시:
+                {
+                    "2019년 지역 아동센터 봉사활동, 아이들에게 수업을 진행하고, 놀이시간을 지원"
+                }
+                """;
+
+            openAIService.getChatGPTResponse(systemMessage, request);
     }
 }

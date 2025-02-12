@@ -10,6 +10,7 @@ import com.ssgsak.dudo.workRecommend.repository.WorkRecommendListRepository;
 import com.ssgsak.dudo.workRecommend.request.FinalJobSelectRequest;
 import com.ssgsak.dudo.workRecommend.request.WorkFieldRequestForAi;
 import com.ssgsak.dudo.workRecommend.response.FinalJobSelectResponse;
+import com.ssgsak.dudo.workRecommend.response.WorkFieldListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,8 +67,8 @@ public class WorkQuestionRecommendService {
 
 
     // AI를 통해 추천된 업무분야 가져오기
-    public String getWorkQuestionForWorkField(Long workRecommendListId) throws JsonProcessingException {
-        
+    public List<WorkFieldListResponse> getWorkQuestionForWorkField(Long workRecommendListId) throws JsonProcessingException {
+
         WorkRecommendList workRecommendList = workRecommendListRepository.findById(workRecommendListId).orElseThrow();
 
         WorkQuestionRecommend questionRecommend = (WorkQuestionRecommend) workQuestionRecommendRepository.findByWorkRecommendList(workRecommendList).orElseThrow();
@@ -78,6 +79,8 @@ public class WorkQuestionRecommendService {
                 .recommend_certifications(questionRecommend.getRecommend_certifications())
                 .recommend_pride_joy(questionRecommend.getRecommend_pride_joy())
                 .build();
+
+
 
 
         return workQuestionOpenAiService.getWorkFieldWithAi(workFieldRequestForAi);

@@ -5,6 +5,7 @@ import com.ssgsak.dudo.workRecommend.domain.WorkRecommendList;
 import com.ssgsak.dudo.workRecommend.repository.WorkQuestionRecommendRepository;
 import com.ssgsak.dudo.workRecommend.repository.WorkRecommendListRepository;
 import com.ssgsak.dudo.workRecommend.response.FinalJobSelectResponse;
+import com.ssgsak.dudo.workRecommend.response.WorkFieldListResponse;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+@Rollback(value = false)
 @SpringBootTest
 class WorkQuestionRecommendServiceTest {
 
@@ -117,7 +118,7 @@ class WorkQuestionRecommendServiceTest {
         workQuestionRecommendRepository.save(workQuestionRecommend);
         //then
 
-        String workQuestionForWorkField = workQuestionRecommendService.getWorkQuestionForWorkField(savedWorkRecommendList.getId());
+        List<WorkFieldListResponse> workQuestionForWorkField = workQuestionRecommendService.getWorkQuestionForWorkField(savedWorkRecommendList.getId());
 
         System.out.println("workQuestionForWorkField = " + workQuestionForWorkField);
 
@@ -163,11 +164,12 @@ class WorkQuestionRecommendServiceTest {
 //        workQuestionRecommendRepository.save(workQuestionRecommend);
         //then
 
-        String workQuestionForWorkField = workQuestionRecommendService.getWorkQuestionForWorkField(savedWorkRecommendList.getId());
-
-        System.out.println("workQuestionForWorkField = " + workQuestionForWorkField);
-
+        List<WorkFieldListResponse> workQuestionForWorkField = workQuestionRecommendService.getWorkQuestionForWorkField(savedWorkRecommendList.getId());
+        for (WorkFieldListResponse workFieldListResponse : workQuestionForWorkField) {
+            System.out.println("workFieldListResponse = " + workFieldListResponse);
+        }
     }
+
 
 
 

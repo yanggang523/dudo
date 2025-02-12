@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @SpringBootTest
 @Rollback(value = false)
-class ResumeMainInfoServiceTest {
+class ResumeMainInfoControllerTest {
 
     @Autowired
     ResumeQuestionsService resumeQuestionsService;
@@ -145,6 +145,27 @@ class ResumeMainInfoServiceTest {
     }
 
 
+    @Test
+    @DisplayName("이력서 작성 7번째 질문 - 수상 추가")
+    void test7() {
+        //given
+        // ResumeQuestions 만들기
+        ResumeQuestions findQuestion = resumeQuestionsService.findOne(createResumeQuestion());
+        // 아까 만든 ResumeQuestions를 찾아서 ResumeMainInfo 만들기
+        createResumeMainInfoWithName(findQuestion.getId(), "테스트 이력서 1", "1993-01-01", "서울시 강남구");
+        // 전화번호, 이메일 추가
+        ResumeMainInfo findMainInfo = resumeMainInfoService.findOne(findQuestion.getId());
+        resumeMainInfoService.saveResumeForPhone(findMainInfo.getId(), new ResumeMainInfoPhone("010-1234-5678", ""));
+
+
+        resumeMainInfoService.saveResumeForSkillLanguage(findMainInfo.getId(), "저는 영어는 토익 800점, 스페인어로 일상 회화 정도는 할 수 있고, 전기설비 기술을 가지고 있습니다.");
+
+        String response = resumeMainInfoService.saveResumeForAward(findMainInfo.getId(), "저는 2019년에 정보처리기사 자격증을 취득했고, 2020년에는 AWS Associate 자격증을 취득했습니다.");
+        System.out.println("response = " + response);
+    }
+
+
+
     /**
      * 회사를 저장하는 메서드
      */
@@ -164,9 +185,6 @@ class ResumeMainInfoServiceTest {
         return resumeMainInfoService.saveResumeForNameLocation(id, request);
     }
 
-    /**
-     *
-     */
 
 
 
@@ -195,5 +213,6 @@ class ResumeMainInfoServiceTest {
 
         resumeMainInfoService.createResumeMainInfo(resumeQuestionId, resumeMainInfoCreate);
     }
+
 
 }

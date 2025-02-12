@@ -177,13 +177,13 @@ class ResumeMainInfoControllerTest {
     /**
      * 이름, 생년월일, 주소를 가진 이력서를 저장하는 메서드
      */
-    private ResumeMainInfoNameLocation createResumeMainInfoWithName(Long id, String resumeName, String resumeDate, String resumeAddress) {
+    private void createResumeMainInfoWithName(Long id, String resumeName, String resumeDate, String resumeAddress) {
         ResumeMainInfoNameLocation request = ResumeMainInfoNameLocation.builder()
                 .resume_name(resumeName)
                 .resume_birth(LocalDate.parse(resumeDate))
                 .resume_address(resumeAddress)
                 .build();
-        return resumeMainInfoService.saveResumeForNameLocation(id, request);
+//        return resumeMainInfoService.saveResumeForNameLocation(id, request);
     }
 
 

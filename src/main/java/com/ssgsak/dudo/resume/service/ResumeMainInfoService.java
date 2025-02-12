@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -38,6 +40,10 @@ public class ResumeMainInfoService {
 
     // 연습용
     public void createResumeMainInfo(Long resumeQuestionsId, ResumeMainInfoCreate resumeMainInfoCreate) {
+
+        if (resumeQuestionsId.equals(null)) {
+            throw new IllegalArgumentException("resumeQuestionsId is null");
+        }
 
         ResumeQuestions resumeQuestions = resumeQuestionsRepository.findById(resumeQuestionsId).orElseThrow();
 
@@ -60,18 +66,15 @@ public class ResumeMainInfoService {
 
 
     // q1 - 이력서 작성 :  이름, 생년월일, 주소 저장
-    public ResumeMainInfoNameLocation saveResumeForNameLocation(Long resumeQuestionsId, ResumeMainInfoNameLocation resumeMainInfoCreate) {
-
-        ResumeQuestions resumeQuestions = resumeQuestionsRepository.findById(resumeQuestionsId).orElseThrow();
-
+    public ResumeMainInfoNameLocation saveResumeForNameLocation(Long resumeQuestionsId, LocalDateTime resentTime, ResumeMainInfoNameLocation resumeMainInfoCreate) {
 
         ResumeMainInfo resumeMainInfo = ResumeMainInfo.builder()
-                .resume_name(resumeMainInfoCreate.getResume_name())
-                .resume_birth(resumeMainInfoCreate.getResume_birth())
-                .resume_address(resumeMainInfoCreate.getResume_address())
-                .build();
+                    .resume_name(resumeMainInfoCreate.getResume_name())
+                    .resume_birth(resumeMainInfoCreate.getResume_birth())
+                    .resume_address(resumeMainInfoCreate.getResume_address())
+                    .build();
 
-        resumeQuestions.addMainInfo(resumeMainInfo);
+//        resumeQuestions.addMainInfo(resumeMainInfo);
 
         resumeMainInfoRepository.save(resumeMainInfo);
         return resumeMainInfoCreate;
@@ -165,7 +168,6 @@ public class ResumeMainInfoService {
     }
 
 
-
     // q8 - 이력서 작성 : 봉사
     public String saveResumeForVolnteer(Long resumeMainInfoId, String request) {
 
@@ -176,7 +178,7 @@ public class ResumeMainInfoService {
         return "";
     }
 
-//    @Transactional(readOnly = true)
+    //    @Transactional(readOnly = true)
     public ResumeMainInfo findOne(Long id) {
         return resumeMainInfoRepository.findById(id).orElse(null);
     }

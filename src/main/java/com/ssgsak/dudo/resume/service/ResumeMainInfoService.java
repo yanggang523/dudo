@@ -5,6 +5,7 @@ import com.ssgsak.dudo.resume.domain.CompanyHistory;
 import com.ssgsak.dudo.resume.domain.ResumeMainInfo;
 import com.ssgsak.dudo.resume.domain.ResumeQuestions;
 import com.ssgsak.dudo.resume.repository.CompanyHistoryRepository;
+import com.ssgsak.dudo.resume.repository.EtcHistoryRepository;
 import com.ssgsak.dudo.resume.repository.ResumeMainInfoRepository;
 import com.ssgsak.dudo.resume.repository.ResumeQuestionsRepository;
 import com.ssgsak.dudo.resume.request.ResumeMainInfoCreate;
@@ -28,11 +29,14 @@ public class ResumeMainInfoService {
 
     private final ResumeQuestionsRepository resumeQuestionsRepository;
     private final ResumeMainInfoRepository resumeMainInfoRepository;
+    private final EtcHistoryRepository etcHistoryRepository;
 
     private final CompanyHistoryRepository companyHistoryRepository;
 
     // ai 서비스
     private final ResumeQuestionOpenAiService resumeQuestionOpenAiService;
+
+
 
     // 연습용
     public void createResumeMainInfo(Long resumeQuestionsId, ResumeMainInfoCreate resumeMainInfoCreate) {
@@ -121,6 +125,8 @@ public class ResumeMainInfoService {
         return resumeCompanyHistoryWithAi;
 
     }
+
+    // 이력서 작성 : 기타 이력서 저장
 
     public Long save(ResumeMainInfo resumeMainInfo) {
         ResumeMainInfo save = resumeMainInfoRepository.save(resumeMainInfo);

@@ -12,8 +12,8 @@ import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-@Getter
 @Entity
+@Getter
 @NoArgsConstructor
 @ToString(of = {"id", "resume_name", "resume_birth", "resume_address", "resume_email", "resume_phone", "resume_school", "resume_major"})
 public class ResumeMainInfo {

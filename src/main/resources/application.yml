@@ -1,0 +1,19 @@
+
+spring:
+  application:
+    name: jobSearchV3
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jobsearch
+    username: postgres
+    password: ming
+    driver-class-name:
+  jpa:
+    hibernate:
+      ddl-auto: create
+      database: postgresql
+
+  ai:
+    openai:
+      chat:
+        options:
+          model: "gpt-4o-mini"

@@ -63,8 +63,7 @@ class WorkQuestionRecommendServiceTest {
     void q1_회사_이름_저장() {
         workQuestionRecommendService.saveRecommendCompanyNames(1L, "삼성전자, LG전자, 현대자동차");
         assertEquals("삼성전자, LG전자, 현대자동차"
-                , workQuestionRecommendRepository.findById(1L)
-                        .get().getRecommend_company_names()
+                , workQuestionRecommendRepository.findById(1L).get().getRecommend_company_names()
         );
     }
 

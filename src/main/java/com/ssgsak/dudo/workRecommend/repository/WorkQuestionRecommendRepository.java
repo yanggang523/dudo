@@ -1,9 +1,9 @@
 package com.ssgsak.dudo.workRecommend.repository;
 
+import com.ssgsak.dudo.workRecommend.domain.WorkQuestionRecommend;
+import com.ssgsak.dudo.workRecommend.domain.WorkRecommendList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import study.jobsearchv3.domain.WorkQuestionRecommend;
-import study.jobsearchv3.domain.WorkRecommendList;
 
 import java.util.Optional;
 

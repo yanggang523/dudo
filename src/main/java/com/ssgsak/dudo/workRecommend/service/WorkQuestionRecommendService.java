@@ -1,18 +1,18 @@
 package com.ssgsak.dudo.workRecommend.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ssgsak.dudo.workRecommend.domain.JobRecommendResult;
+import com.ssgsak.dudo.workRecommend.domain.WorkQuestionRecommend;
+import com.ssgsak.dudo.workRecommend.domain.WorkRecommendList;
+import com.ssgsak.dudo.workRecommend.repository.JobRecommendResultRepository;
+import com.ssgsak.dudo.workRecommend.repository.WorkQuestionRecommendRepository;
+import com.ssgsak.dudo.workRecommend.repository.WorkRecommendListRepository;
+import com.ssgsak.dudo.workRecommend.request.FinalJobSelectRequest;
+import com.ssgsak.dudo.workRecommend.request.WorkFieldRequestForAi;
+import com.ssgsak.dudo.workRecommend.response.FinalJobSelectResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.jobsearchv3.domain.JobRecommendResult;
-import study.jobsearchv3.domain.WorkQuestionRecommend;
-import study.jobsearchv3.domain.WorkRecommendList;
-import study.jobsearchv3.repository.JobRecommendResultRepsotory;
-import study.jobsearchv3.repository.WorkQuestionRecommendRepository;
-import study.jobsearchv3.repository.WorkRecommendListRepository;
-import study.jobsearchv3.request.FinalJobSelectRequest;
-import study.jobsearchv3.request.WorkFieldRequestForAi;
-import study.jobsearchv3.response.FinalJobSelectResponse;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class WorkQuestionRecommendService {
     //
     private final WorkRecommendListRepository workRecommendListRepository;
 
-    private final JobRecommendResultRepsotory jobRecommendResultRepsotory;
+    private final JobRecommendResultRepository jobRecommendResultRepository;
 
     // ai 서비스
     private final WorkQuestionOpenAiService workQuestionOpenAiService;
@@ -105,7 +105,7 @@ public class WorkQuestionRecommendService {
                 .recommend_work_field(workQuestionRecommend.getRecommend_work_field())
                 .build();
 
-        List<JobRecommendResult> jobRecommendResults = jobRecommendResultRepsotory.findAll();
+        List<JobRecommendResult> jobRecommendResults = jobRecommendResultRepository.findAll();
         List<FinalJobSelectResponse> list = workQuestionOpenAiService.getFinalJobSelectResponse(request);
         for (FinalJobSelectResponse finalJobSelectResponse : list) {
             JobRecommendResult build = JobRecommendResult.builder()
@@ -117,7 +117,7 @@ public class WorkQuestionRecommendService {
                     .recommend_job_url3(finalJobSelectResponse.getRecommend_job_url3())
                     .build();
 
-            jobRecommendResultRepsotory.save(build);
+            jobRecommendResultRepository.save(build);
         }
 
         return list;

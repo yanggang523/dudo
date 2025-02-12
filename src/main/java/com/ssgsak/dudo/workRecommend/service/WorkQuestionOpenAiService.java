@@ -2,14 +2,14 @@ package com.ssgsak.dudo.workRecommend.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssgsak.dudo.config.OpenAIService;
+import com.ssgsak.dudo.workRecommend.request.FinalJobSelectRequest;
+import com.ssgsak.dudo.workRecommend.request.WorkFieldRequestForAi;
+import com.ssgsak.dudo.workRecommend.response.FinalJobSelectResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.jobsearchv3.config.OpenAIService;
-import study.jobsearchv3.request.FinalJobSelectRequest;
-import study.jobsearchv3.request.WorkFieldRequestForAi;
-import study.jobsearchv3.response.FinalJobSelectResponse;
 
 import java.util.List;
 

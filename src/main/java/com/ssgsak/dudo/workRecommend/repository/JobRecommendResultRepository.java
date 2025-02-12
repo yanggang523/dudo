@@ -1,12 +1,12 @@
 package com.ssgsak.dudo.workRecommend.repository;
 
 
+import com.ssgsak.dudo.workRecommend.domain.JobRecommendResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import study.jobsearchv3.domain.JobRecommendResult;
 
 @Repository
-public interface JobRecommendResultRepsotory extends JpaRepository<JobRecommendResult, Long> {
+public interface JobRecommendResultRepository extends JpaRepository<JobRecommendResult, Long> {
 
 
 

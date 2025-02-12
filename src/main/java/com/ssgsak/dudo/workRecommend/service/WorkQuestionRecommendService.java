@@ -67,9 +67,8 @@ public class WorkQuestionRecommendService {
 
     // AI를 통해 추천된 업무분야 가져오기
     public String getWorkQuestionForWorkField(Long workRecommendListId) throws JsonProcessingException {
-
+        
         WorkRecommendList workRecommendList = workRecommendListRepository.findById(workRecommendListId).orElseThrow();
-
 
         WorkQuestionRecommend questionRecommend = (WorkQuestionRecommend) workQuestionRecommendRepository.findByWorkRecommendList(workRecommendList).orElseThrow();
 

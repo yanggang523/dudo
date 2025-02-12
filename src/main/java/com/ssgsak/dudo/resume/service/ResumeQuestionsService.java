@@ -15,8 +15,8 @@ public class ResumeQuestionsService {
 
 
     public Long save(ResumeQuestions resumeQuestions) {
-        ResumeQuestions savedReumeQuestion = resumeQuestionsRepository.save(resumeQuestions);
-        return savedReumeQuestion.getId();
+        ResumeQuestions savedResumeQuestion = resumeQuestionsRepository.save(resumeQuestions);
+        return savedResumeQuestion.getId();
     }
 
 //    @Transactional(readOnly = true)

@@ -44,6 +44,12 @@ public class ResumeMainInfo {
     @OneToMany(mappedBy = "resumeMainInfo", cascade = CascadeType.ALL)
     private List<CompanyHistory> companyHistoryList = new ArrayList<>();
 
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "etc_history_id")
+    private EtcHistory etcHistory;
+
+
     public void addCompanyHistory(CompanyHistory companyHistory) {
         companyHistoryList.add(companyHistory);
         companyHistory.changeResumeInfo(this);
@@ -68,6 +74,11 @@ public class ResumeMainInfo {
     public void changeResumeSchool(String resume_school, String resume_major) {
         this.resume_school = resume_school;
         this.resume_major = resume_major;
+    }
+
+    public void changeResume_skill_language(String resume_skills, String resume_languages) {
+        this.etcHistory = new EtcHistory(resume_skills, resume_languages);
+        etcHistory.changeResumeMainInfo(this);
     }
 
 

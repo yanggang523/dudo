@@ -2,21 +2,20 @@ package com.ssgsak.dudo.resume.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssgsak.dudo.resume.domain.CompanyHistory;
+import com.ssgsak.dudo.resume.domain.EtcHistory;
 import com.ssgsak.dudo.resume.domain.ResumeMainInfo;
 import com.ssgsak.dudo.resume.domain.ResumeQuestions;
 import com.ssgsak.dudo.resume.repository.CompanyHistoryRepository;
 import com.ssgsak.dudo.resume.repository.EtcHistoryRepository;
 import com.ssgsak.dudo.resume.repository.ResumeMainInfoRepository;
 import com.ssgsak.dudo.resume.repository.ResumeQuestionsRepository;
-import com.ssgsak.dudo.resume.request.ResumeMainInfoCreate;
-import com.ssgsak.dudo.resume.request.ResumeMainInfoNameLocation;
-import com.ssgsak.dudo.resume.request.ResumeMainInfoPhone;
-import com.ssgsak.dudo.resume.request.ResumeMainInfoSchool;
+import com.ssgsak.dudo.resume.request.*;
 import com.ssgsak.dudo.resume.response.CompanyHistoryResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -62,7 +61,7 @@ public class ResumeMainInfoService {
 
 
 
-    // 이력서 작성 이름, 생년월일, 주소 저장
+    // q1 - 이력서 작성 :  이름, 생년월일, 주소 저장
     public ResumeMainInfoNameLocation saveResumeForNameLocation(Long resumeQuestionsId, ResumeMainInfoNameLocation resumeMainInfoCreate) {
 
         ResumeQuestions resumeQuestions = resumeQuestionsRepository.findById(resumeQuestionsId).orElseThrow();
@@ -80,8 +79,8 @@ public class ResumeMainInfoService {
         return resumeMainInfoCreate;
     }
 
-    // 이력서 작성 전화번호, 이메일 작성
-    public ResumeMainInfoPhone saveResumeforPhone(Long resumeMainInfoId, @Valid ResumeMainInfoPhone resumeMainInfoCreate) {
+    // q2 - 이력서 작성 연락처, 이메일 작성
+    public ResumeMainInfoPhone saveResumeForPhone(Long resumeMainInfoId, ResumeMainInfoPhone resumeMainInfoCreate) {
 
         ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
         resumeMainInfo.changeResumePhone(resumeMainInfoCreate.getResume_phone(), resumeMainInfoCreate.getResume_email());
@@ -89,7 +88,7 @@ public class ResumeMainInfoService {
         return resumeMainInfoCreate;
     }
 
-    // 이력서 작성 : 학교, 전공 작성
+    // q3 - 이력서 작성 : 학교, 전공 작성
     public ResumeMainInfoSchool saveResumeForSchool(Long resumeMainInfoId, String request) throws JsonProcessingException {
 
         ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
@@ -102,7 +101,7 @@ public class ResumeMainInfoService {
 
     }
 
-    // 이력서 작성 : 근무한 회사이름, 근속연수, 했던일 저장
+    // q4 - 이력서 작성 : 근무한 회사이름, 근속연수, 했던일 저장
     public List<CompanyHistoryResponse> saveResumeForCompanyHistory(Long resumeMainInfoId, String request) throws JsonProcessingException {
 
         ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
@@ -126,11 +125,29 @@ public class ResumeMainInfoService {
 
     }
 
-    // 이력서 작성 : 기타 이력서 저장
+    // q5 - 이력서 작성 : 언어 사용기술 저장
+    public ResumeMainInfoSkillLanguage saveResumeForSkillLanguage(Long resumeMainInfoId , String request) {
 
-    public Long save(ResumeMainInfo resumeMainInfo) {
-        ResumeMainInfo save = resumeMainInfoRepository.save(resumeMainInfo);
-        return save.getId();
+        ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
+
+        ResumeMainInfoSkillLanguage resumeCompanyHistoryWithAi = resumeQuestionOpenAiService.getResumeSkillLanguages(request);
+        resumeMainInfo.changeResume_skill_language(resumeCompanyHistoryWithAi.getResume_skills(), resumeCompanyHistoryWithAi.getResume_languages());
+
+        return resumeCompanyHistoryWithAi;
+    }
+
+    // q6 - 이력서 작성 : 기타사항 저장
+    public  ResumeMainInfoCertificationEducation saveResumeForCertificationEducation(Long resumeMainInfoId, String request) {
+
+        ResumeMainInfo resumeMainInfo = resumeMainInfoRepository.findById(resumeMainInfoId).orElseThrow();
+
+        ResumeMainInfoCertificationEducation resumeCompanyHistoryWithAi = resumeQuestionOpenAiService.getResumeCertificationEducation(request);
+
+        EtcHistory etcHistory = resumeMainInfo.getEtcHistory();
+
+        etcHistory.changeResume_certification_education(resumeCompanyHistoryWithAi.getResume_certificates(), resumeCompanyHistoryWithAi.getResume_education());
+
+        return resumeCompanyHistoryWithAi;
     }
 
 //    @Transactional(readOnly = true)

@@ -7,7 +7,6 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Data
-@Getter
 public class ResumeMainInfoCreate {
 
     private String resume_name; // 이력서 이름

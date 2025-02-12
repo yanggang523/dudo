@@ -89,20 +89,14 @@ public class KakaoService {
 
 
             HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
             headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)); // Accept 추가
             headers.setBearerAuth(accessToken);
 
-            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-            params.add("grant_type", "authorization_code");
-            params.add("client_id", clientId);
-            params.add("redirect_uri", redirectUri);
-
-            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+            HttpEntity<Void> request = new HttpEntity<>(headers);
 
             ResponseEntity<String> response = restTemplate.exchange(
                     "https://kapi.kakao.com/v2/user/me",
-                    HttpMethod.POST,
+                    HttpMethod.GET,
                     request,
                     String.class
             );

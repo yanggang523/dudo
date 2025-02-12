@@ -12,15 +12,13 @@ import lombok.Setter;
 @Getter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 public class KakaoUser { // 왜, 무슨 생각으로 KakaoUser라고 한 걸까... 시간 남으면 전부 User로 바꾸기...
 
-    @Id
-    private Long id;
 
     @Column(length = 50)
     private String nickname;
 
+    @Id
     @Column(unique = true, length = 100)
     private String email;
 

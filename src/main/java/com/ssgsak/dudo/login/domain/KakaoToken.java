@@ -20,10 +20,10 @@ import java.time.LocalDateTime;
 public class KakaoToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String email;
 
     @OneToOne
+    @MapsId
     @JoinColumn(name = "email", nullable = false) // KakaoUser 테이블의 email과 FK 관계
     private KakaoUser kakaoUser;
 
@@ -42,6 +42,7 @@ public class KakaoToken {
     public KakaoToken(KakaoUser kakaoUser, String kakaoAccessToken, String kakaoRefreshToken,
                       LocalDateTime kakaoExpiresIn, LocalDateTime kakaoRefreshExpiresIn) {
         this.kakaoUser = kakaoUser;
+        this.email = kakaoUser.getEmail();
         this.kakaoAccessToken = kakaoAccessToken;
         this.kakaoRefreshToken = kakaoRefreshToken;
         this.kakaoExpiresIn = kakaoExpiresIn;

@@ -5,6 +5,7 @@ import com.ssgsak.dudo.login.service.KakaoService;
 import com.ssgsak.dudo.login.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,19 +16,22 @@ import com.ssgsak.dudo.login.dto.LoginResponseDTO;
 
 import java.time.Duration;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class LoginController {
 
     private final KakaoService kakaoService;
     private final JwtUtil jwtUtil;
 
     // 로그인 및 회원가입
-    @GetMapping("/login/oauth2/callback/kakao")
+    @GetMapping("/login/callback")
     public ResponseEntity<?> kakaoLogin(HttpServletRequest request) {
         String code = request.getParameter("code"); // 인가 코드 추출
+        log.info("카카오 로그인 인가 코드: {}", code);
         String kakaoAccessToken = kakaoService.getKakaoAccessToken(code); // 카카오 access 토큰 받아오기
+        log.info("카카오 로그인 엑세스 토큰: {}", kakaoAccessToken);
         LoginResponseDTO loginResponse = kakaoService.getKakaoUserInfo(kakaoAccessToken); // 사용자 정보 가져오기
         String email = loginResponse.getEmail();
         String jwtAccessToken = jwtUtil.createAccessToken(email);

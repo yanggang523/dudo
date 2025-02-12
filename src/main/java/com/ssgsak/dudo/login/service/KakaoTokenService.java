@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 public class KakaoTokenService {
-
+/*
     private final KakaoTokenRepository kakaoTokenRepository;
     private final UserRepository userRepository;
 
@@ -35,7 +35,7 @@ public class KakaoTokenService {
                 })
                 .orElseGet(() -> userRepository.save(new KakaoUser(email, nickname))); // email 기준 중복 검사
 
-            kakaoTokenRepository.findByUserEmail(email) // email 기준 조회
+            kakaoTokenRepository.findByKakaoUserEmail(email) // email 기준 조회
                     .ifPresentOrElse(existingToken -> {
                         existingToken.setKakaoAccessToken(kakaoAccesstokenDTO.getAccess_token());
                         existingToken.setKakaoRefreshToken(kakaoAccesstokenDTO.getRefresh_token());
@@ -50,4 +50,6 @@ public class KakaoTokenService {
                         kakaoTokenRepository.save(newToken);
                     });
     }
+
+ */
 }

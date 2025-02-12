@@ -98,6 +98,7 @@ class ResumeMainInfoControllerTest {
 
         // companyHistory 추가
         List<CompanyHistoryResponse> companyHistory = createCompanyHistory(findMainInfo.getId(), "저는 카카오에서 3년간 근무했습니다. 주로 인공지능 개발 업무를 담당했어요. 그리고 현재는 네이버에서 근무하고 있습니다.");
+        System.out.println("companyHistory = " + companyHistory);
         for (CompanyHistoryResponse companyHistoryResponse : companyHistory) {
             System.out.print("회사 1 : ");
             System.out.println(companyHistoryResponse);

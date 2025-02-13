@@ -16,6 +16,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @NoArgsConstructor
 @ToString(of = {"id", "resume_name", "resume_birth", "resume_address", "resume_email", "resume_phone", "resume_school", "resume_major"})
+@Table(name = "resume_main_info")
 public class ResumeMainInfo {
 
     @Id

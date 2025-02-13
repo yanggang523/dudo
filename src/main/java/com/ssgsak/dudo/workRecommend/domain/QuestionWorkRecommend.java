@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "question_work_recommend")
 public class QuestionWorkRecommend {
 
     @Id

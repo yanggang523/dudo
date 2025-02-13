@@ -15,6 +15,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Table(name = "user_work_recommend")
 public class UserWorkRecommend {
 
     @Id

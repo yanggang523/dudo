@@ -13,13 +13,12 @@ public class SecurityConstants {
             "/login",
             "/auth/login/kakao/**",
             "/api/member/signup/**",
-            "/api/member/signup",
             "/favicon.ico",
             "/error",
 //            "/api/invitation/**",
 //            "/api/join",
             "/test/**",
-            "api/member/info",
+            "/api/member/info",
             "/auth/**"
     };
 

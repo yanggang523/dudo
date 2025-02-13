@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "job_recommend_result")
 public class JobRecommendResult {
 
 
@@ -15,7 +16,7 @@ public class JobRecommendResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int rank;
+    private int result_rank;
     private String recommend_job_name;
     private String recommend_job_url1;
     private String recommend_job_url2;

@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class WorkQuestionRecommend {
+public class QuestionWorkRecommend {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,20 +24,25 @@ public class WorkQuestionRecommend {
 
     private String recommend_work_field; // 원하는 업무분야
 
-    @OneToOne(mappedBy = "workQuestionRecommend")
-    private WorkRecommendList workRecommendList;
+    @OneToOne(mappedBy = "questionWorkRecommend")
+    private UserWorkRecommend userWorkRecommend;
 
 
-    private void changeWorkRecommendList(WorkRecommendList workRecommendList) {
-        this.workRecommendList = workRecommendList;
+    private void changeWorkRecommendList(UserWorkRecommend userWorkRecommend) {
+        this.userWorkRecommend = userWorkRecommend;
 
     }
 
-    public WorkQuestionRecommend(String recommend_company_names) {
+    public QuestionWorkRecommend(UserWorkRecommend userWorkRecommend) {
+        this.userWorkRecommend = userWorkRecommend;
+        userWorkRecommend.setQuestionWorkRecommend(this);
+    }
+
+    public QuestionWorkRecommend(String recommend_company_names) {
         this.recommend_company_names = recommend_company_names;
     }
 
-    public WorkQuestionRecommend(String recommend_company_names, String recommend_company_careers, String recommend_certifications, String recommend_pride_joy) {
+    public QuestionWorkRecommend(String recommend_company_names, String recommend_company_careers, String recommend_certifications, String recommend_pride_joy) {
         this.recommend_company_names = recommend_company_names;
         this.recommend_company_careers = recommend_company_careers;
         this.recommend_certifications = recommend_certifications;
@@ -47,7 +52,7 @@ public class WorkQuestionRecommend {
 
 
     @Builder
-    public WorkQuestionRecommend(String recommend_company_names, String recommend_company_careers, String recommend_certifications, String recommend_pride_joy, String recommend_employ_type, String recommend_sigungu, String recommend_commute_hour, String recommend_work_hour, String recommend_work_field) {
+    public QuestionWorkRecommend(String recommend_company_names, String recommend_company_careers, String recommend_certifications, String recommend_pride_joy, String recommend_employ_type, String recommend_sigungu, String recommend_commute_hour, String recommend_work_hour, String recommend_work_field) {
         this.recommend_company_names = recommend_company_names;
         this.recommend_company_careers = recommend_company_careers;
         this.recommend_certifications = recommend_certifications;

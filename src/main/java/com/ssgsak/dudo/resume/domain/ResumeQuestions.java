@@ -33,6 +33,9 @@ public class ResumeQuestions {
     @LastModifiedDate
     private LocalDate resume_published;
 
+    @LastModifiedDate
+    private LocalDateTime recent_time;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "resumeQuestions")
     private List<ResumeMainInfo> resumeMainInfoList = new ArrayList<>();
 

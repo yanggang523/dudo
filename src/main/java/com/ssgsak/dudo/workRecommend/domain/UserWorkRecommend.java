@@ -34,7 +34,7 @@ public class UserWorkRecommend {
     @JoinColumn(name = "question_work_recommend_id")
     private QuestionWorkRecommend questionWorkRecommend;
 
-    @OneToMany(mappedBy = "userWorkRecommend", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userWorkRecommend")
     private List<JobRecommendResult> jobRecommendResults = new ArrayList<>();
 
 
